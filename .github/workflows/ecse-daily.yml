@@ -1,0 +1,53 @@
+name: ECSE Daily Report
+
+on:
+  schedule:
+    - cron: "0 21 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-parse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline for today
+        run: python3 ecse_pipeline.py
+
+      - name: Commit updated data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update ECSE data ($(date +'%Y-%m-%d'))"
+          file_pattern: "data/*.json data/*.csv"
+          skip_dirty_check: false
+
+      - name: Open an issue if the run failed
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `ECSE pipeline failed on ${new Date().toISOString().slice(0, 10)}`,
+              body:
+                "The scheduled ECSE data fetch failed on a weekday.\n\n" +
+                "Likely causes:\n" +
+                "- A regional public holiday meant ECSE didn't publish a report (harmless, safe to close this)\n" +
+                "- ECSE changed their report URL or filename pattern (needs a fix)\n" +
+                "- ECSE changed the PDF layout, breaking the parser (needs a fix)\n\n" +
+                `See the failed run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              labels: ["ecse-pipeline", "needs-check"],
+            });
