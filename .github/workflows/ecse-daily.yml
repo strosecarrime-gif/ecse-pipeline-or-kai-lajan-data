@@ -6,7 +6,9 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: write  
+  issues: write
+
 
 jobs:
   fetch-and-parse:
