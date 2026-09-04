@@ -32,9 +32,15 @@ DATA_DIR.mkdir(exist_ok=True)
 
 def build_report_url(target_date: date) -> str:
     """Build the expected ECSE report URL for a given date, matching their
-    observed naming pattern: ECSE-DAILY-TRADE-REPORT-21May26.pdf"""
-    date_str = target_date.strftime("%d%b%y")  # e.g. "21May26"
+    naming pattern observed on ecseonline.com as of September 2026:
+    ECSE-DAILY-TRADE-REPORT-3Sep2026.pdf (day NOT zero-padded, 4-digit year)."""
+    day_str = str(target_date.day)
+    month_str = target_date.strftime("%b")
+    year_str = str(target_date.year)
+    date_str = f"{day_str}{month_str}{year_str}"
     return BASE_URL.format(year=target_date.year, month=target_date.month, date_str=date_str)
+
+
 
 
 def fetch_report_text(url: str, timeout: int = 15) -> str:
