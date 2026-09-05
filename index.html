@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kai Lajan — ECSE Market Watch</title>
+<style>
+  :root{
+    --ink:#10231F;
+    --teal:#0E3B36;
+    --teal-deep:#092A26;
+    --sand:#F6EFE0;
+    --sand-line:#E4D9BF;
+    --gold:#D9922E;
+    --gold-soft:#F1D9A8;
+    --coral:#C4482F;
+    --mint:#8FC7B5;
+    --paper:#FBF7EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--teal-deep);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+  }
+  .app{
+    max-width:430px;
+    margin:0 auto;
+    min-height:100vh;
+    background:var(--paper);
+  }
+  header{
+    background:var(--teal);
+    padding:28px 20px 22px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    right:-40px; top:-40px;
+    width:160px; height:160px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--gold-soft) 0%, transparent 70%);
+    opacity:0.25;
+  }
+  .wordmark{
+    font-family:Georgia,"Iowan Old Style",serif;
+    color:var(--paper);
+    font-size:29px;
+    letter-spacing:0.3px;
+    margin:0;
+    position:relative;
+  }
+  .wordmark em{ font-style:normal; color:var(--gold-soft); }
+  .subline{
+    color:var(--mint);
+    font-size:13px;
+    margin:6px 0 0;
+    position:relative;
+  }
+  .date-strip{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-top:20px;
+    position:relative;
+  }
+  .date-strip span:first-child{ color:#D8ECE6; font-size:12.5px; }
+  .date-strip span:last-child{ color:var(--paper); font-size:12.5px; font-weight:600; }
+
+  .section-label{
+    padding:22px 20px 8px;
+    font-family:Georgia,serif;
+    font-size:15px;
+    color:var(--teal);
+    border-bottom:1px solid var(--sand-line);
+    margin:0 4px;
+  }
+  .list{ padding:4px 12px 24px; }
+  .row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 8px;
+    border-bottom:1px solid var(--sand-line);
+  }
+  .row:last-child{ border-bottom:none; }
+  .flag{
+    width:34px; height:34px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    background:var(--sand);
+    flex-shrink:0;
+  }
+  .company-info{ flex:1; min-width:0; }
+  .company-name{
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .company-meta{ font-size:11.5px; color:#7A8D87; margin-top:2px; }
+  .price-block{ text-align:right; flex-shrink:0; }
+  .price{ font-family:Georgia,serif; font-size:15.5px; color:var(--ink); }
+
+  .footnote{
+    padding:18px 20px 30px;
+    font-size:11.5px;
+    color:#8A8272;
+    line-height:1.5;
+    border-top:1px solid var(--sand-line);
+    margin-top:6px;
+  }
+  .footnote a{ color:var(--teal); }
+
+  .state-message{
+    padding:60px 24px;
+    text-align:center;
+    color:#7A8D87;
+    font-size:14px;
+    line-height:1.6;
+  }
+  .state-message.error{ color:var(--coral); }
+
+  .feedback-strip{
+    margin:0 16px 20px;
+    padding:14px 16px;
+    background:var(--sand);
+    border-radius:10px;
+    border:1px solid var(--sand-line);
+    font-size:12.5px;
+    color:var(--teal);
+    line-height:1.5;
+  }
+  .feedback-strip a{ color:var(--teal); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <p class="wordmark">Kai <em>Lajan</em></p>
+    <p class="subline">Eastern Caribbean Securities Exchange, at a glance</p>
+    <div class="date-strip">
+      <span>Last session</span>
+      <span id="report-date">Loading…</span>
+    </div>
+  </header>
+
+  <div id="content">
+    <div class="state-message">Fetching the latest ECSE prices…</div>
+  </div>
+
+  <div class="feedback-strip">
+    This is an early prototype — prices come from ECSE's own public daily
+    report, fetched automatically each weekday evening. Spot something off,
+    or have an idea for what'd make this more useful? Let the person who
+    shared this link know.
+  </div>
+
+</div>
+
