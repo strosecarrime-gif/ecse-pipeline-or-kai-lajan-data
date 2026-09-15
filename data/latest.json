@@ -1,5 +1,5 @@
 {
-  "report_date": "2026-09-14",
+  "report_date": "2026-09-15",
   "equities": [
     {
       "company": "The Bank of Nevis Ltd",
@@ -47,7 +47,7 @@
     },
     {
       "company": "TDC Ltd",
-      "close_price": 1.0
+      "close_price": 1.12
     },
     {
       "company": "The West Indies Oil Company Ltd",
